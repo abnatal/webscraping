@@ -1,2 +1,2 @@
 # webscrapping
-Miscellaneous webscrapping scripts
+Miscellaneous web scrapping scripts.
