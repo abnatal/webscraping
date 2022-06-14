@@ -1,4 +1,4 @@
-*Miscellaneous web scrapping scripts.*
+*Miscellaneous web scraping scripts.*
 
 # fundamentus.com.br
 
