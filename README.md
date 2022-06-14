@@ -7,4 +7,10 @@ Fundamentus is a free website that provides information about the Brazilian stoc
 
 This script gets financial information about companies, grouped by their industries.
 
-It uses asyncio/aiohttp to download the data concurrently.
+It uses __asyncio/aiohttp__ to download the data concurrently.
+
+# fipe.org.br
+
+FIPE (Fundação Instituto de Pesquisas Econômicas - https://www.fipe.org.br) is a non-profit brazilian organization. One of its goals is to research economic and financial indicators.
+
+This script gets informations about new/used vehicles prices in brazilian market.
