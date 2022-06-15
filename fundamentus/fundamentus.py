@@ -29,33 +29,36 @@ def extract_data_from(html):
     soup = BeautifulSoup(html)
     thead, tbody = soup.findAll('thead'), soup.findAll('tbody')
     if len(thead) == 0 or len(tbody) == 0:
-        return {'error' : 'invalid thead/tbody'}
+        return [{'error' : 'invalid thead/tbody', 'content' : html}]
 
     htrs, btrs = thead[0].findAll('tr'), tbody[0].findAll('tr')
     if len(htrs) == 0 or len(btrs) == 0:
-        return {'error' : 'invalid thead.tr/tbody.tr'}
+        return [{'error' : 'invalid thead.tr/tbody.tr', 'content' : html}]
 
-    ths, tds = htrs[0].findAll('th'), btrs[0].findAll('td')
-    result = {}
-    for i, th in enumerate(ths):
-        result[th.text.strip()] = tds[i].text.strip()
+    result = []
+    th = htrs[0].findAll('th')
+    for btr in btrs:
+        item = { }
+        for i, td in enumerate(btr.findAll('td')):
+            item[th[i].text.strip()] = td.text.strip()
+        result.append(item)
     return result
 
-def write_to_json_file(sector_id, dict_data):
-    """ Write the dictionary data to a JSON file.
+def write_to_json_file(sector_id, data):
+    """ Write the data to a JSON file.
         :param sector_id: id of a financial sector
-        :param dict_data: dictonary with the data
+        :param data: financial data (list)
     """
-    if not dict_data:
+    if not data or len(data) == 0:
         return
 
     today = datetime.now().strftime('%Y%m%d')
     filename = f'{OUTPUT_DIR}/sector_{sector_id}_{today}.json'
-    if dict_data.get('error'):
+    if data[0].get('error'):
         filename += '.error'
 
     with Path(filename).open('w', encoding='utf8') as f:
-        f.write(json.dumps(dict_data))
+        f.write(json.dumps(data))
 
 async def get_sector_data(session, sector_id):
     """ Asynchronously download data from a financial sector.
@@ -63,7 +66,7 @@ async def get_sector_data(session, sector_id):
     """
     link = FUNDAMENTUS_URL % sector_id
     async with session.get(link) as resp:
-        data = await resp.read()
+        data = await resp.text()
     write_to_json_file(sector_id, extract_data_from(data))
     logger.info('Downloaded data from %s', sector_id)
 
