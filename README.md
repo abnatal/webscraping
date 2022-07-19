@@ -1,6 +1,6 @@
 *Miscellaneous web scraping scripts.*
 
-# fundamentus.com.br
+# fundamentus
 
 Fundamentus (https://fundamentus.com.br) is a free website that provides information about the Brazilian stock market (BVMF).
 
@@ -8,7 +8,7 @@ This script gets financial information about companies, grouped by their industr
 
 It uses __asyncio/aiohttp__ to download data concurrently.
 
-# fipe.org.br
+# fipe
 
 FIPE (Fundação Instituto de Pesquisas Econômicas - https://www.fipe.org.br) is a non-profit brazilian organization. One of its goals is to research economic and financial indicators.
 
