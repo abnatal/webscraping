@@ -1,6 +1,5 @@
 .vscode
-settings.toml
-botobot.db
+.others
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
